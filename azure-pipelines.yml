@@ -9,7 +9,7 @@ resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+  tag: "hellogo-teste"
 
 stages:
 
@@ -36,7 +36,7 @@ stages:
         docker: false
         image: 'verissimomoraes1/hellogo-pos:$(Build.BuildId)'
         severities: 'HIGH,CRITICAL'
-        exitCode: '0'
+        exitCode: '1'
         options: --skip-policy-update
 
     - task: Docker@2
