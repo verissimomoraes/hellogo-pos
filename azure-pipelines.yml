@@ -30,7 +30,7 @@ stages:
           $(tag)
 
     - task: trivy@1
-      displayName: "Run trivy scan MS"
+      displayName: "Run trivy scan"
       inputs:
         version: 'latest'
         docker: false
@@ -47,4 +47,3 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
-          
