@@ -9,7 +9,7 @@ resources:
 - repo: self
 
 variables:
-  tag: $(Date:yyyyMMdd)$(Rev:.r)
+  tag: $(Build.BuildId)
 
 stages:
 
@@ -34,7 +34,7 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: |
-          $(Date:yyyyMMdd)$(Rev:.r)
+          $(Build.BuildId)
     - task: CmdLine@2
       inputs:
         script: |
@@ -45,7 +45,7 @@ stages:
       inputs:
         version: 'latest'
         docker: false
-        image: 'verissimomoraes1/hellogo-pos:$(Date:yyyyMMdd)$(Rev:.r)'
+        image: 'verissimomoraes1/hellogo-pos:$(Build.BuildId)'
         severities: 'HIGH,CRITICAL'
         exitCode: '1'
         options: --skip-policy-update
