@@ -52,4 +52,5 @@ stages:
     - task: Docker@2
       inputs:
         containerRegistry: 'Registry-Docker-Verissimo'
+        repository: 'hellogo-pos'
         command: 'push'
