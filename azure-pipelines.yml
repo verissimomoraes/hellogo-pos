@@ -24,7 +24,9 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        command: 'build'
+        containerRegistry: 'Registry-Docker-Verissimo'
+        repository: 'hellogo-pos'
+        command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: 'beta1.1'
     - task: CmdLine@2
