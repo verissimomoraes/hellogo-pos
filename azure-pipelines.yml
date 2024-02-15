@@ -24,14 +24,21 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        tags: 'beta1.1'
     - task: CmdLine@2
       inputs:
         script: |
           docker image ls
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Registry-Docker-Verissimo'
+        repository: 'hellogo-pos'
+        command: 'push'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: 'beta1.1'
     - task: trivy@1
       displayName: "Run trivy scan"
       inputs:
@@ -41,12 +48,3 @@ stages:
         severities: 'HIGH,CRITICAL'
         exitCode: '1'
         options: --skip-policy-update
-
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'Registry-Docker-Verissimo'
-        repository: 'hellogo-pos'
-        command: 'push'
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
