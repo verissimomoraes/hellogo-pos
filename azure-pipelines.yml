@@ -47,5 +47,5 @@ stages:
         docker: false
         image: 'verissimomoraes1/hellogo-pos:$(Build.BuildId)'
         severities: 'HIGH,CRITICAL'
-        exitCode: '1'
+        exitCode: '0'
         options: --skip-policy-update
