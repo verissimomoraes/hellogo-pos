@@ -12,18 +12,6 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Scan
-  displayName: Scan Code
-  jobs:
-  - job: scan
-    displayName: scan
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: MicrosoftSecurityDevOps@1
-      inputs:
-        command: 'pre-job'
-        tools: 'trivy'
 
 - stage: Build
   displayName: Build image
@@ -41,14 +29,16 @@ stages:
         tags: |
           $(tag)
 
-- stage: Push
-  displayName: Push image
-  jobs:
-  - job: Push
-    displayName: Push
-    pool:
-      vmImage: ubuntu-latest
-    steps:
+    - task: trivy@1
+      displayName: "Run trivy scan MS"
+      inputs:
+        version: 'latest'
+        docker: false
+        image: 'verissimomoraes1/hellogo-pos:$(Build.BuildId)'
+        severities: 'HIGH,CRITICAL'
+        exitCode: '0'
+        options: --skip-policy-update
+
     - task: Docker@2
       inputs:
         containerRegistry: 'Registry-Docker-Verissimo'
@@ -57,3 +47,4 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
+          
