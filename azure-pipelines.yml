@@ -54,3 +54,6 @@ stages:
         containerRegistry: 'Registry-Docker-Verissimo'
         repository: 'hellogo-pos'
         command: 'push'
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: |
+          $(tag)
