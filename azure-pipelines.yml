@@ -28,7 +28,10 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
-
+    - task: CmdLine@2
+      inputs:
+        script: |
+          docker image ls
     - task: trivy@1
       displayName: "Run trivy scan"
       inputs:
