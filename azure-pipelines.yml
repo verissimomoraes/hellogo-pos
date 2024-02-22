@@ -49,3 +49,10 @@ stages:
         severities: 'HIGH,CRITICAL'
         exitCode: '0'
         options: --skip-policy-update
+    - task: SSH@0
+      displayName: "Atualizando o serviço no cluster"
+      inputs:
+        sshEndpoint: 'ssh-docker-swarm'
+        runOptions: 'commands'
+        commands: 'sudo docker service update --image verissimomoraes1/hellogo-pos:beta --force hellogo-pos'
+        readyTimeout: '20000'
