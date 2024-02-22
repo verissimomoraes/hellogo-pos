@@ -65,7 +65,7 @@ stages:
         runOptions: 'commands'
         commands: 'sudo docker login -u verissimomoraes1 -p dckr_pat_dIgzvk0e1V3OOYXHa13wkrhBAJA'
         readyTimeout: '20000'
-        failOnStdErr: true
+        failOnStdErr: false
     - task: SSH@0
       displayName: "Pull imagem docker"
       inputs:
