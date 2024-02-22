@@ -49,11 +49,36 @@ stages:
         severities: 'HIGH,CRITICAL'
         exitCode: '0'
         options: --skip-policy-update
+
+- stage: Deploy
+  displayName: Deploy cluster Swarm
+  jobs:
+  - job: Build
+    displayName: Deploy
+    pool:
+      vmImage: ubuntu-latest
+    steps:
     - task: SSH@0
-      displayName: "Atualizando o serviço no cluster"
+      displayName: "Login docker"
+      inputs:
+        sshEndpoint: 'ssh-docker-swarm'
+        runOptions: 'commands'
+        commands: 'sudo docker login -u verissimomoraes1 -p dckr_pat_dIgzvk0e1V3OOYXHa13wkrhBAJA'
+        readyTimeout: '20000'
+        failOnStdErr: true
+    - task: SSH@0
+      displayName: "Pull imagem docker"
+      inputs:
+        sshEndpoint: 'ssh-docker-swarm'
+        runOptions: 'commands'
+        commands: 'sudo docker pull verissimomoraes1/hellogo-pos:$(Build.BuildId)'
+        readyTimeout: '20000'
+        failOnStdErr: true        
+    - task: SSH@0
+      displayName: "Update service Docker"
       inputs:
         sshEndpoint: 'ssh-docker-swarm'
         runOptions: 'commands'
         commands: 'sudo docker service update --image verissimomoraes1/hellogo-pos:$(Build.BuildId) --force hellogo-pos'
         readyTimeout: '20000'
-        failOnStdErr: true
+        failOnStdErr: true                
