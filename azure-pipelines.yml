@@ -54,6 +54,6 @@ stages:
       inputs:
         sshEndpoint: 'ssh-docker-swarm'
         runOptions: 'commands'
-        commands: 'sudo docker service update --image verissimomoraes1/hellogo-pos:beta --force hellogo-pos'
+        commands: 'sudo docker service update --image verissimomoraes1/hellogo-pos:$(Build.BuildId) --force hellogo-pos'
         readyTimeout: '20000'
         failOnStdErr: true
