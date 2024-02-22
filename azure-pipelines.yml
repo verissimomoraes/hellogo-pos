@@ -56,3 +56,4 @@ stages:
         runOptions: 'commands'
         commands: 'sudo docker service update --image verissimomoraes1/hellogo-pos:beta --force hellogo-pos'
         readyTimeout: '20000'
+        failOnStdErr: true
