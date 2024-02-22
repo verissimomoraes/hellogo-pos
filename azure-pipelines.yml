@@ -27,14 +27,20 @@ stages:
         containerRegistry: 'Registry-Docker-Verissimo'
         command: 'login'
     - task: Docker@2
-      displayName: Build and Push a image
+      displayName: Build a image
       inputs:
         containerRegistry: 'Registry-Docker-Verissimo'
         repository: 'verissimomoraes1/hellogo-pos'
-        command: 'buildAndPush'
+        command: 'build'
         Dockerfile: '**/Dockerfile'
-        tags: |
-          $(Build.BuildId)
+        tags: '$(Build.BuildId)'
+    - task: Docker@2
+      displayName: Push a image
+      inputs:
+        containerRegistry: 'Registry-Docker-Verissimo'
+        repository: 'verissimomoraes1/hellogo-pos'
+        command: 'push'
+        tags: '$(Build.BuildId)'
     - task: CmdLine@2
       inputs:
         script: |
